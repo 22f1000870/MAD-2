@@ -5,18 +5,18 @@
 // access to object : obj.key or // obj['key']
 
 
-let obj1 ={
-    //a:10, if a is remove all output will be NaN
-    operation(x,y,n){
+// let obj1 ={
+//     //a:10, //if a is remove all output will be NaN
+//     operation(x,y,n){
     
-    return x**n+y + this.a;
-}}
+//     return x**n+y + this.a;
+// }}
 
-let obj2={
-    a:15,b:10
-}
+// let obj2={
+//     a:15,b:10
+// }
 
-let fn= obj1.operation
+// let fn= obj1.operation
 
 //console.log(fn)
 //console.log(fn(2,3,4)); //output NAN because fn don't have first key
@@ -30,10 +30,65 @@ let fn= obj1.operation
 //let newfn = fn.bind(obj2,2,3)
 
 //console.log(newfn(5))
+// let myarr=[1,2,3]
 
-//apply method
-console.log(fn.apply(obj2,[2,3,3])) // same output as line 23, no need to call
+// function sqr(n){return n*n}
+// let sqarr=myarr.map(sqr); //mapping
+
+// console.log(sqarr)
+// //apply method
+// console.log(fn.apply(obj2,sqarr))
+// console.log(fn.apply(obj2,[2,3,3])) // same output as line 23, no need to call
 
 
-console.log(fn.call(obj2,2,3,3))// same output as line 23, directly runs and gives output only difference is you don;t need array
+// console.log(fn.call(obj2,2,3,3))// you can use ...myarr object in place of individual value
+// // same output as line 23, directly runs and gives output only difference is you don;t need array
 
+// let a=[1,2,3]
+// let b=[4,5,6]
+
+// let c=[1,2,3,b]
+// let d=[1,2,3,...b]
+
+let fun =function(){
+    return "MJ"
+} //anonmyous function should be assigned to a variable
+
+fun()
+
+//arrow functions
+let fun1=()=>{
+
+}
+
+//in callback functions we used arrow functions
+// setInterval(()=>{
+//     console.log("I am called")
+// },5000)
+
+var a=10;
+let obj1 ={
+         a:10, 
+         operation:function(x,y,n){
+        
+         return x**n+y + this.a;
+    }}
+console.log(obj1.operation(2,3,4)) //29 putput
+
+let obj2 ={
+    a:10, 
+    operation:(x,y,n)=>{
+   
+    return x**n+y + this.a; //this is not valid for arrow functions
+}}
+console.log(obj2.operation(2,3,4)) //NaN
+ //this is a global object in javascript document
+ //try console.log(this) if there is no a in global object thrn can't use it
+ //so arrow function cannot use this 
+
+ // to use this.a in arrow function create global variable using var
+ //because doing this will create a global object in 'this' object
+ //if you have any number of nested arrow function still this.a will refer to global var a
+//hoisting generates variable while compilation but assig value during interpretation
+//variable created without keyword isn't hoiosted
+//learn about join method () extra activity
