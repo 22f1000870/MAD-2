@@ -85,38 +85,56 @@ class Product {
     }
   
       buyProduct(customer_id, product, count){
-          const productIndex = this.products.findIndex(p => p.name === product.name);
-          if (productIndex === -1 || this.products[productIndex].stock < count) {
-              return false;
+          
+        const productName=product.name;
+        const productPrice=product.price;
+
+        let a= this.products.find((product)=>product.name===productName && product.price ===productPrice);
+        
+        if (a){
+          if(a.stock >= count) {
+            a.stock -=count;
+            this.balance += productPrice * count;
+
+            let history= new CustomerProducts(customer_id,product,count)
+            this.customer_products.push(history);
+
+          } else {
+            return false;
           }
-          const totalPrice = product.price * count;
-          this.products[productIndex].stock -= count;
-          this.balance += totalPrice;
-          const customerProduct = new CustomerProducts(customer_id, product, count);
-          this.customer_products.push(customerProduct);
-          return true;
+        } else {
+          return false;
+        }
   
     }
   
   
     returnProduct(customer_id, product, count){
-        const customerProductIndex = this.customer_products.findIndex(cp => cp.customer_id === customer_id && cp.product.name === product.name);
-    if (customerProductIndex === -1 || this.customer_products[customerProductIndex].count < count) {
-      return false;
-    }
-    const productIndex = this.products.findIndex(p => p.name === product.name);
-    const totalPrice = product.price * count;
-    this.products[productIndex].stock += count;
-    this.balance -= totalPrice;
-    if (this.customer_products[customerProductIndex].count === count) {
-      this.customer_products.splice(customerProductIndex, 1);
-    } else {
-      this.customer_products[customerProductIndex].count -= count;
-    }
-    return true;
-     
-      // Add your code here
-  
+
+        let a =this.customer_products.find((history)=>history.customer_id===customer_id && history.product.name===product.name && history.product.price===product.price )
+        let index =this.customer_products.findIndex((history)=>history.customer_id===customer_id && history.product.name===product.name && history.product.price===product.price )
+
+        if (a) {
+          if (a.count < count){
+            return false;
+          } else {
+            let a = this.products.find((e)=>e.name=product.name && e.price===product.price)
+            a.stock+=count;
+            this.balance-=(count * product.price);
+
+            if(a.count>count){
+              a.count-=count;
+            }
+            else if (a.count===count){
+              this.customer_products.splice(index,1);
+            }
+            return true;
+          }
+
+        } else {
+          return false;
+        }
+
     }
   
   
