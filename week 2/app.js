@@ -9,15 +9,15 @@
 
 
 
-let obj1 ={
-    a:10,                                      //if a is remove all output will be NaN
-    operation(x,y,n){
+// let obj1 ={
+//     a:10,                                      //if a is remove all output will be NaN
+//     operation(x,y,n){
     
-    return x**n+y + this.a;
-}}
-let fn= obj1.operation
+//     return x**n+y + this.a;
+// }}
+// let fn= obj1.operation
 
-console.log(fn.call(obj1,2,3,4))
+// console.log(fn.call(obj1,2,3,4))
 
 // you can use ...myarr object in place of individual value
 // // output 29, directly runs and gives output only difference is you don;t need array
@@ -101,3 +101,30 @@ console.log(fn.call(obj1,2,3,4))
 //hoisting generates variable while compilation but assig value during interpretation
 //variable created without keyword isn't hoiosted
 //learn about join method () extra activity
+
+// const a={
+//     'x1':10,
+//     func1:function(){
+//         console.log(this.x1);
+//     }
+// }
+
+// const b= {
+//     'x1':20,
+//     func2:function(){
+//         c=a.func1;
+//         c.apply(b,[10]);
+//     }
+// }
+
+// b.func2();
+
+
+let obj={
+    
+    func:(x)=>{
+        this.x=x;
+        console.log(this.x)
+    }
+}
+obj.func(20);
